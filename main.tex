@@ -1,0 +1,314 @@
+\documentclass[a4paper, titlepage, openany]{book}
+
+% ==========================================
+% 1. GÓI LỆNH NỀN TẢNG & NGÔN NGỮ
+% ==========================================
+\usepackage[vietnamese]{babel}
+\usepackage{fontspec}
+\usepackage[a4paper]{geometry}
+\usepackage{bookmark}
+\usepackage{hyperref}
+
+% ==========================================
+% 2. TOÁN HỌC - ĐỒ HỌA - BẢNG BIỂU
+% ==========================================
+% Toán học
+\usepackage{amsmath, amssymb, bm, cancel, centernot, dsfont, mathrsfs, stmaryrd}
+
+\allowdisplaybreaks
+
+% Đồ họa & Hình ảnh
+\usepackage{float, wrapfig2, caption}
+\usepackage{tikz, tikz-3dplot, pgfplots}
+
+% Bảng biểu & Danh sách
+\usepackage{diagbox, longtable, makecell, tabularray, multicol, multirow}
+\usepackage{enumitem, calc, varwidth}
+
+% Tiện ích khác
+\usepackage{blindtext, indentfirst, xcolor, xparse}
+
+% ==========================================
+% 3. ĐỊNH NGHĨA TÔNG MÀU
+% ==========================================
+\definecolor{colorCrimson}{RGB}{220, 24, 24}
+\definecolor{colorDodgerblue}{RGB}{0, 120, 255}
+\definecolor{colorJade}{RGB}{0, 171, 77}
+\definecolor{colorWisteria}{RGB}{139, 66, 141}
+
+\definecolor{colorEmphasis}{RGB}{220, 24, 24}
+\definecolor{colorEmphasisCyan}{RGB}{0, 120, 255}
+\definecolor{colorEmphasisGreen}{RGB}{0, 171, 77}
+
+\newcommand{\coloringCrimson}[1]{\textcolor{colorCrimson}{#1}}
+\newcommand{\coloringDodgerblue}[1]{\textcolor{colorDodgerblue}{#1}}
+\newcommand{\coloringJade}[1]{\textcolor{colorJade}{#1}}
+\newcommand{\coloringWisteria}[1]{\textcolor{colorWisteria}{#1}}
+
+% ==========================================
+% 4. CẤU HÌNH CÁC GÓI LỆNH (SETUP)
+% ==========================================
+% Cấu hình Hình học (Margins)
+\geometry{bindingoffset=0.5cm, inner=2cm, outer=2cm, top=2cm, bottom=2cm, headheight=15pt}
+
+% Cấu hình Đồ thị PGFPlots & TikZ
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta, calc, decorations.pathmorphing, fadings, intersections, positioning, pgfplots.fillbetween, shadings, shapes.geometric}
+
+\tikzset{
+   snake it/.style={decorate, decoration=snake, very thin},
+   set boundary/.style={thick, draw=black},
+   element/.style={circle, fill=black, inner sep=1.2pt},
+   element emphasis/.style={circle, fill=colorEmphasis, inner sep=1.5pt},
+   direction arrow/.style={->, >={Stealth[scale=0.75]}},
+   guide arrow/.style={->, >={Stealth[scale=1.5]}, thick, shorten >= 2pt, shorten <= 2pt},
+   guide double arrow/.style={<->, >={Stealth[scale=1.5]}, thick, shorten >= 2pt, shorten <= 2pt},
+   label style/.style={font=\small\sffamily}
+}
+
+% Cấu hình Định dạng Số
+\usepackage{siunitx}
+\sisetup{
+   output-decimal-marker = {,},
+   group-minimum-digits = 4,
+   list-final-separator = { và },
+   range-phrase = { đến }
+}
+
+\usepackage{etoolbox}
+\newcommand{\Rmnum}[1]{\ExpandArgs{e}\uppercase{\romannumeral #1}}
+
+% Cấu hình Bảng biểu
+\setcellgapes{4pt}
+\makegapedcells
+\newcommand{\headerDivider}{\noalign{\hrule height 1.5pt}}
+
+% Cấu hình Tài liệu tham khảo (BibLaTeX)
+\usepackage[
+   backend=biber,
+   style=numeric,
+   maxbibnames=99,
+   sorting=nty,
+   defernumbers=true
+]{biblatex}
+\addbibresource{references.bib}
+
+\DeclareDelimFormat{multinamedelim}{\addcomma\space}
+\DeclareDelimFormat{finalnamedelim}{\space và\space}
+\renewbibmacro{in:}{\addsemicolon\space}
+\DeclareFieldFormat{pages}{#1}
+\DeclareFieldFormat{volume}{\textbf{#1}}
+\DeclareFieldFormat{number}{(#1)}
+\renewbibmacro*{volume+number+eid}{%
+  \printfield{volume}%
+  \printfield{number}%
+  \setunit{\addcomma\space}%
+}
+
+% ==========================================
+% 5. ĐỊNH DẠNG ĐẦU VÀ CUỐI TRANG (HEADER/FOOTER)
+% ==========================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+\usepackage[explicit]{titlesec}
+\assignpagestyle{\chapter}{fancy}
+\assignpagestyle{\part}{fancy}
+
+\fancyhead[LO]{\textcolor{colorEmphasisCyan}{\nouppercase{\leftmark}}}
+\fancyhead[RE]{\textcolor{colorEmphasisCyan}{\nouppercase{\rightmark}}}
+\fancyhead[RO,LE]{\textcolor{colorEmphasisCyan}{\thepage}}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\color{colorEmphasisCyan}\hrule width\headwidth height\headrulewidth}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headsep}{0.5cm}
+
+% ==========================================
+% 6. CÁC BỘ ĐẾM (COUNTERS) & ĐÁNH SỐ
+% ==========================================
+\renewcommand{\thetable}{\thechapter.\arabic{table}}
+\numberwithin{equation}{chapter}
+
+% Bộ đếm bài tập & lời giải
+\newcounter{exercise}
+\NewDocumentCommand{\exercise}{o}{
+   \refstepcounter{exercise}
+   \noindent\textbf{\textcolor{colorEmphasisCyan}{Bài \arabic{exercise}:}}
+   \IfNoValueTF{#1}
+      {\label{ex:ex\arabic{exercise}}}
+      {\label{#1}}
+}
+
+\newcounter{solution}
+\NewDocumentCommand{\solution}{o}{
+   \refstepcounter{solution}
+   \IfNoValueTF{#1}
+      {\noindent\textbf{Lời giải bài~\ref{ex:ex\arabic{exercise}}:}}
+      {\noindent\textbf{Lời giải bài~\ref{#1}}:}
+   \IfNoValueTF{#1}
+      {\label{sol\arabic{solution}}}
+      {\label{sol:#1}}
+}
+
+\newcounter{subexercise}
+\setcounter{subexercise}{1}
+\newcommand{\resetSubexercise}{
+   \setcounter{subexercise}{1}
+   \arabic{subexercise}.
+}
+
+\newcommand{\stepSubexercise} {
+   \stepcounter{subexercise}
+   \arabic{subexercise}.
+}
+
+\newcommand{\refex}[1]{\coloringDodgerblue{bài \ref{#1}}}
+\newcommand{\Refex}[1]{\coloringDodgerblue{Bài \ref{#1}}}
+
+% ==========================================
+% 7. LỆNH TỰ ĐỊNH NGHĨA (MACROS)
+% ==========================================
+% Định dạng chữ
+\newcommand{\emphcolor}[1]{\textcolor{colorEmphasis}{\emph{#1}}}
+\newcommand{\emphcyanbf}[1]{\textcolor{colorEmphasisCyan}{\textbf{#1}}}
+\newcommand{\emphredbf}[1]{\textcolor{colorCrimson}{\textbf{#1}}}
+\newcommand{\defText}[1]{\textbf{#1}}
+\newcommand{\defMath}[1]{\bm{#1}}
+\newcommand{\dblquote}[1]{\textquotedblleft #1\textquotedblright}
+
+% Toán học mở rộng
+\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\Def}{Def}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator*{\Maj}{Maj}
+\DeclareMathOperator*{\Max}{Max}
+\DeclareMathOperator*{\Min}{Min}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Imf}{Im}
+\DeclareMathOperator{\imf}{im}
+\DeclareMathOperator*{\Inf}{Inf}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator*{\Sup}{Sup}
+\newcommand{\equationexplanation}[1]{&& \textcolor{colorEmphasis}{\left(\text{#1}\right)}}
+
+% Môi trường đặc biệt
+\newlength{\recordparindent}
+\newenvironment{minipageindent}[1]{
+   \setlength{\recordparindent}{\parindent}
+   \setlength{\parindent}{0em}
+   \begin{minipage}{#1}
+   \setlength{\parindent}{\recordparindent}
+}{
+   \end{minipage}
+   \setlength{\parindent}{\recordparindent}
+}
+
+% ==========================================
+% 8. THIẾT KẾ TIÊU ĐỀ & MỤC LỤC (TITLES & TOC)
+% ==========================================
+\titleformat{\part}
+   {\normalfont\Huge\bfseries}
+   {}
+   {0pt}
+   {\centering\textcolor{colorEmphasisCyan}{
+      {\fontsize{60}{72}\selectfont Phần \Roman{part}}\\
+      #1}
+   }
+
+\titleformat{name=\chapter,numberless}
+   {\normalfont\Huge\bfseries}
+   {}
+   {0pt}
+   {\textcolor{colorEmphasisCyan}{#1}}
+
+\titleformat{\chapter}
+   {\normalfont\Huge\bfseries}
+   {}
+   {0pt}
+   {\textcolor{colorEmphasisCyan}{
+      {\fontsize{60}{72}\selectfont\thechapter.}\\[0.5em]
+      #1}
+   }
+
+\titleformat{\section}
+   {\normalfont\Large\bfseries}
+   {}
+   {0pt}
+   {%
+      \setlength{\fboxrule}{2pt}%
+      \setlength{\fboxsep}{1em}%
+      \fcolorbox{colorEmphasisCyan}{white}{%
+         \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+         \textcolor{colorEmphasisCyan}{\thesection}\quad #1
+         }%
+      }%
+   }
+
+\titleformat{\subsection}
+   {\normalfont\large\bfseries}
+   {}
+   {0pt}
+   {\textcolor{colorEmphasisCyan}{\thesubsection} \quad #1}
+
+\defbibheading{referencesubheading}[]{%
+   \setlength{\fboxrule}{2pt}%
+   \setlength{\fboxsep}{1.6em}%
+   \noindent
+   \fcolorbox{colorEmphasisCyan}{white}{%
+      \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+         \normalfont\Large\bfseries #1%
+      }%
+   }%
+   \vspace{1em}%
+   \addcontentsline{toc}{section}{#1}%
+}
+
+% Chỉnh màu của mục lục
+\makeatletter
+\patchcmd{\l@part}{\bfseries}{\color{colorEmphasisCyan}\bfseries}{}{}
+\patchcmd{\l@chapter}{\bfseries}{\color{colorEmphasisCyan}\bfseries}{}{}
+\patchcmd{\l@section}{\numberline}{\textcolor{colorEmphasisCyan}{\numberline}}{}{}
+\patchcmd{\l@subsection}{\numberline}{\textcolor{colorEmphasisCyan}{\numberline}}{}{}
+
+\let\oldchapter\chapter
+\RenewDocumentCommand{\chapter}{s o m}{%
+   \IfBooleanTF{#1}
+      {% Khi dùng \chapter*{...}
+         \oldchapter*{#3}%
+         \addcontentsline{toc}{chapter}{#3}%
+         \markboth{#3}{#3}%
+      }
+      {% Khi dùng \chapter{...} hoặc \chapter[...]{...}
+         \IfValueTF{#2}
+         {\oldchapter[#2]{#3}}
+         {\oldchapter{#3}}%
+      }%
+}
+\makeatother
+
+% ==========================================
+% 9. THÔNG TIN TÀI LIỆU (METADATA)
+% ==========================================
+\title{Bài tập toán}
+\author{Finfina Piseratopo}
+
+% ==========================================
+% BẮT ĐẦU NỘI DUNG TÀI LIỆU
+% ==========================================
+\begin{document}
+
+% \pagenumbering{gobble} % Tắt đánh số trang cho trang tiêu đề
+% \maketitle
+
+\pagenumbering{arabic} % Thiết lập lại bộ đếm trang về 1 và dùng số Ả Rập
+% \tableofcontents
+\input{chapter/vecto.tex}
+
+\end{document}

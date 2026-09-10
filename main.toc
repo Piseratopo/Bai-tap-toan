@@ -1,4 +1,6 @@
 \babel@toc {vietnamese}{}\relax 
 \contentsline {chapter}{Mục lục\markboth {\MakeUppercase []{Mục lục}}{\MakeUppercase []{Mục lục}}}{1}{chapter*.1}%
-\contentsline {chapter}{Tài liệu tham khảo}{2}{chapter*.2}%
-\contentsline {chapter}{Tài liệu tham khảo}{2}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}Véc-tơ và hệ trục tọa độ trong không gian}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Véc-tơ trong không gian}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Hệ trục tọa độ trong không gian}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Biểu thức toạ độ của các phép toán véc-tơ}{3}{section.1.3}%

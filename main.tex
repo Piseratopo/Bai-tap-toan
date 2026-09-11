@@ -141,6 +141,15 @@
       {\label{#1}}
 }
 
+\newcounter{exerciseExtra}
+\NewDocumentCommand{\exerciseExtra}{o}{
+   \refstepcounter{exerciseExtra}
+   \noindent\textbf{\coloringCrimson{Bài \arabic{exerciseExtra}:}}
+   \IfNoValueTF{#1}
+      {\label{ex:extra\arabic{exerciseExtra}}}
+      {\label{#1}}
+}
+
 \newcounter{solution}
 \NewDocumentCommand{\solution}{o}{
    \refstepcounter{solution}
@@ -150,6 +159,17 @@
    \IfNoValueTF{#1}
       {\label{sol\arabic{solution}}}
       {\label{sol:#1}}
+}
+
+\newcounter{solutionExtra}
+\NewDocumentCommand{\solutionExtra}{o}{
+   \refstepcounter{solutionExtra}
+   \IfNoValueTF{#1}
+      {\noindent\textbf{\coloringCrimson{Lời giải bài~\ref{ex:extra\arabic{exerciseExtra}}:}}}
+      {\noindent\textbf{\coloringCrimson{Lời giải bài~\ref{#1}}:}}
+   \IfNoValueTF{#1}
+      {\label{solExtra\arabic{solutionExtra}}}
+      {\label{solExtra:#1}}
 }
 
 \newcounter{subexercise}
@@ -309,6 +329,8 @@
 
 \pagenumbering{arabic} % Thiết lập lại bộ đếm trang về 1 và dùng số Ả Rập
 \tableofcontents
+\input{chapter/khao_sat_ham_so.tex}
 \input{chapter/vecto.tex}
+\input{bai_tap_bo_sung.tex}
 
 \end{document}

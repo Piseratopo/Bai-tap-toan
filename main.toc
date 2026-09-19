@@ -10,4 +10,12 @@
 \contentsline {section}{\numberline {2.1}Véc-tơ trong không gian}{4}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Hệ trục tọa độ trong không gian}{4}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Biểu thức toạ độ của các phép toán véc-tơ}{5}{section.2.3}%
-\contentsline {chapter}{\numberline {3}Bài tập bổ sung}{6}{chapter.3}%
+\contentsline {chapter}{\numberline {3}Các số tập trung đo mức độ phân tán của mẫu số liệu ghép nhóm}{6}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Khoảng biến thiên và khoảng tứ phân vị}{6}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Phương sai và độ lệch chuẩn}{6}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Phương pháp tọa độ trong không gian}{8}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Phương trình mặt phẳng}{8}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Phương trình đường thẳng trong không gian}{8}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Công thức tính góc trong không gian}{8}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Phương trình mặt cầu}{9}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Bài tập bổ sung}{10}{chapter.5}%
